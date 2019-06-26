@@ -9,13 +9,7 @@ const eqArrays = function(arr1, arr2) {
 };
 
 const without = function(arr,withoutElems) {
-  let returnArr = [];
-  arr.forEach((element) => {
-    if (!withoutElems.includes(element)) {
-      returnArr.push(element);
-    }
-  });
-  return returnArr;
+  return arr.filter(ele => !withoutElems.includes(ele));
 };
 
 assertArraysEqual(without(["hello", "world", "lighthouse"], ["lighthouse"]), ["hello", "world"]);
