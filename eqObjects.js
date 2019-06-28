@@ -40,14 +40,13 @@ const eqObjects = (obj1, obj2) => {
   return obj1 &&
          obj2 &&
          typeof obj1 === 'object' &&
-         typeof obj1 === typeof obj2 ? (
-           Object.keys(obj1).length === Object.keys(obj2).length &&
-           Object.keys(obj1).every(key => eqObjects(obj1[key], obj2[key]))
-           )
-         : (obj1 === obj2) || !(isNaN(obj1) ^ isNaN(obj2));
+         ((isNaN(obj1) || isNaN(obj2)) ?
+           !(isNaN(obj1) ^ isNaN(obj2)) :
+           (typeof obj1 === typeof obj2 ? (
+             Object.keys(obj1).length === Object.keys(obj2).length &&
+             Object.keys(obj1).every(key => eqObjects(obj1[key], obj2[key]))
+           ) : (obj1 === obj2)));
 };
-
-
 
 // Recursive:
 
