@@ -1,25 +1,43 @@
-const assertEqual = function(actual, expected) {
-  JSON.stringify(actual) === JSON.stringify(expected) ?
-    console.log(`\u2705 Assertion Passed: "${actual}" === "${expected}"`) :
-    console.log(`\uD83D\uDD34 Assertion Failed: "${actual}" !== "${expected}"`);
-};
+const eqObjects = require('./eqObjects');
 
 const eqArrays = function(arr1, arr2) {
-  return arr1.length === arr2.length &&
-         arr1.reduce((acc,ele,i) => Array.isArray(ele) ? eqArrays(ele,arr2[i]) : ele === arr2[i],true);
+
+  if (arr1.length !== arr2.length) return false;
+  for (let i = 0; i < arr1.length; i++) {
+    const arrTi1 = typeof arr1[i];
+    const arrTi2 = typeof arr2[i];
+    if (arrTi1 !== arrTi2) return false;
+    switch (arrTi1) {
+    case ("string"):
+      if (arr1[i] !== arr2[i]) return false;
+      break;
+    case ("number"):
+      if (isNaN(arr1[i]) ^ isNaN(arr2[i])) return false;
+      if (!isNaN(arr1[i])) {
+        if (arr1[i] !== arr2[i]) return false;
+      }
+      break;
+    case ("function"):
+      if (JSON.stringify(arr1[i]) !== JSON.stringify(arr2[i])) return false;
+      break;
+    case ("boolean"):
+      if (arr1[i] !== arr2[i]) return false;
+      break;
+    case ("undefined"):
+      if (arr1[i] !== arr2[i]) return false;
+      break;
+    case ("object"):
+      if (arr1[i] === null) {
+        if (arr1[i] !== arr2[i]) return false;
+      } else if (Array.isArray(arr1[i])) {
+        if (!eqArrays(arr1[i],arr2[i])) return false;
+      } else {
+        if (!eqObjects(arr1[i],arr2[i])) return false;
+      }
+      break;
+    }
+  }
+  return true;
 };
 
-assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => should PASS
-
-console.log(eqArrays(["1", "2", "3"], ["1", "2", "3"])); // => true
-console.log(eqArrays(["1", "2", "3"], ["1", "2", 3])); // => false
-
-console.log(eqArrays([[2, 3], [4]], [[2, 3], [4]])); // => true
-
-
-console.log(eqArrays([[2, 3], [4]], [[2, 3], [4, 5]])); // => false
-console.log(eqArrays([[2, 3], [4]], [[2, 3], 4])); // => false
-
-
-
-console.log(eqArrays([[2, 3], [4],[[[1],2]]],[[2, 3], [4],[[[1],2]]])); // => true
+module.exports = eqArrays;

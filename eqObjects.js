@@ -1,79 +1,50 @@
-const assertEqual = function(actual, expected) {
-  actual === expected ?
-    console.log(`\u2705 Assertion Passed: "${actual}" === "${expected}"`) :
-    console.log(`\uD83D\uDD34 Assertion Failed: "${actual}" !== "${expected}"`);
+const eqArrays = function(arr1, arr2) {
+  return arr1.length === arr2.length &&
+         arr1.reduce((acc,ele,i) => Array.isArray(ele) ?
+           eqArrays(ele,arr2[i]) :
+           (ele === arr2[i] || (isNaN(ele) && isNaN(arr2[i]))),true);
 };
 
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
+const eqObjects = (obj1, obj2) => {
+  const ok1 =  Object.keys(obj1);
+  const ok2 =  Object.keys(obj2);
 
-
-// Returns true if both objects have identical keys with identical values.
-// Otherwise you get back a big fat false!
-/*
-const eqObjects = function(object1, object2) {
-  if (JSON.stringify(Object.keys(object1).sort()) !== JSON.stringify(Object.keys(object2).sort())) {
-    return false;
-  }
-  for (const objKeys in object1) {
-    if (Array.isArray(object1[objKeys]) && Array.isArray(object2[objKeys])) {
-      if (JSON.stringify(object1[objKeys]) !== JSON.stringify(object2[objKeys])) {
-        return false;
+  if (ok1.length !== ok2.length) return false;
+  for (const keys in obj1) {
+    const otk1 = typeof obj1[keys];
+    const otk2 = typeof obj2[keys];
+    if (otk1 !== otk2) return false;
+    switch (otk1) {
+    case ("string"):
+      if (obj1[keys] !== obj2[keys]) return false;
+      break;
+    case ("number"):
+      if (isNaN(obj1[keys]) ^ isNaN(obj2[keys])) return false;
+      if (!isNaN(obj1[keys])) {
+        if (obj1[keys] !== obj2[keys]) return false;
       }
-    } else {
-      if (object1[objKeys] !== object2[objKeys]) {
-        return false;
+      break;
+    case ("function"):
+      if (JSON.stringify(obj1[keys]) !== JSON.stringify(obj2[keys])) return false;
+      break;
+    case ("boolean"):
+      if (obj1[keys] !== obj2[keys]) return false;
+      break;
+    case ("undefined"):
+      if (obj1[keys] !== obj2[keys]) return false;
+      break;
+    case ("object"):
+      if (obj1[keys] === null) {
+        if (obj1[keys] !== obj2[keys]) return false;
+      } else if (Array.isArray(obj1[keys])) {
+        if (!eqArrays(obj1[keys],obj2[keys])) return false;
+      } else {
+        if (!eqObjects(obj1[keys],obj2[keys])) return false;
       }
+      break;
     }
   }
   return true;
 };
-*/
 
-const eqArrays = function(arr1, arr2) {
-  return JSON.stringify(arr1) === JSON.stringify(arr2);
-};
-
-// Collaborative work with Hans
-// Won't test functions properly
-const eqObjects = (obj1, obj2) => {
-  return obj1 &&
-         obj2 &&
-         typeof obj1 === 'object' &&
-         ((isNaN(obj1) || isNaN(obj2)) ?
-           !(isNaN(obj1) ^ isNaN(obj2)) :
-           (typeof obj1 === typeof obj2 ? (
-             Object.keys(obj1).length === Object.keys(obj2).length &&
-             Object.keys(obj1).every(key => eqObjects(obj1[key], obj2[key]))
-           ) : (obj1 === obj2)));
-};
-
-// Recursive:
-
-const cdef = { c: "1", d: ["2", 3, 4], e: {f: [2, 4]}};
-const cdef2 = { c: "1", e: {f: [2, 4]}, d: ["2", 3, 4]};
-
-assertEqual(eqObjects(cdef, cdef2),true);
-
-
-const ef = { e: {f: [2, 4]}, g: NaN };
-const ef2 = { e: {f: [2, 4]}, g: NaN };
-const ef3 = { e: {f: [2, 4]}, g: 8 };
-
-assertEqual(eqObjects(ef, ef2),true);
-assertEqual(eqObjects(ef3, ef2),false);
-
-
-eqObjects(ab, ba); // => true
-assertEqual(eqObjects(ab, ba),true);
-
-const abc = { a: "1", b: "2", c: "3" };
-assertEqual(eqObjects(ab, abc),false);
-
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
-assertEqual(eqObjects(cd, dc),true);
-
-const cd2 = { c: "1", d: ["2", 3, 4] };
-assertEqual(eqObjects(cd, cd2),false);
-
+module.exports = eqObjects;

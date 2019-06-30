@@ -1,0 +1,26 @@
+{
+  "name": "lotide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "assertArraysEqual.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebDufresne/lotide.git"
+  },
+  "author": "Sebastien Dufresne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SebDufresne/lotide/issues"
+  },
+  "homepage": "https://github.com/SebDufresne/lotide#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  }
+}
