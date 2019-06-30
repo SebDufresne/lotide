@@ -50,7 +50,7 @@ describe('eqArrays', function() {
     assert.isFalse(eqArrays(array1,array2));
   });
   it('NaN: [1, 2, NaN] !eq [1, 2, "NaN"]', function() {
-    const array1 = [1, 2, 3];
+    const array1 = [1, 2, NaN];
     const array2 = [1, 2, "NaN"];
     assert.isFalse(eqArrays(array1,array2));
   });
