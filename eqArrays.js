@@ -32,7 +32,9 @@ const eqArrays = function(arr1, arr2) {
       } else if (Array.isArray(arr1[i])) {
         if (!eqArrays(arr1[i],arr2[i])) return false;
       } else {
-        if (!eqObjects(arr1[i],arr2[i])) return false;
+        if (arr1[i] !== arr2[i]) {
+          if (!eqObjects(arr1[i],arr2[i])) return false;
+        }
       }
       break;
     }

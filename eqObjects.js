@@ -39,7 +39,9 @@ const eqObjects = (obj1, obj2) => {
       } else if (Array.isArray(obj1[keys])) {
         if (!eqArrays(obj1[keys],obj2[keys])) return false;
       } else {
-        if (!eqObjects(obj1[keys],obj2[keys])) return false;
+        if (obj1[keys] !== obj2[keys]) {
+          if (!eqObjects(obj1[keys],obj2[keys])) return false;
+        }
       }
       break;
     }
