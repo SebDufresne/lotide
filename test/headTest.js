@@ -1,3 +1,5 @@
+
+/*
 const assert = require('chai').assert;
 const head = require('../head');
 
@@ -15,3 +17,4 @@ describe("#head", () => {
     assert.strictEqual(head([]), undefined);
   });
 });
+*/
