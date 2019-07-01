@@ -1,13 +1,12 @@
-const middle = function(array) {
-  if (array.length < 3) return [];
+const middle = function(arr) {
+  if (arr.length < 3) return [];
 
-  const midPoint = Math.ceil(array.length / 2);
-  const middleArr = [];
-  middleArr.push(array[Math.ceil(midPoint) - 1]);
-  if (!(array.length % 2)) {
-    middleArr.push(array[Math.ceil(midPoint)]);
-  }
-  return middleArr;
+  const mid = Math.floor(arr.length / 2);
+
+  return arr.length % 2 ?
+    arr.slice(mid, mid + 1) : // Odd
+    arr.slice(mid - 1, mid + 1); // Even
+
 };
 
 module.exports = middle;
