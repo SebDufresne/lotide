@@ -5,5 +5,4 @@ const assertArraysEqual = function(actual, expected) {
     console.log(`\uD83D\uDD34 Assertion Failed: "${inspect(actual)}" !== "${inspect(expected)}"`);
 };
 
-//assertArraysEqual(["1", "2", "3"], ["1", "2", "3"]); // => true
-//assertArraysEqual(["1", "2", "3"], ["1", "2", 3]); // => false
+module.exports = assertArraysEqual;
