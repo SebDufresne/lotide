@@ -1,3 +1,4 @@
+//const eqObjects = require('./index').eqObjects;
 // --->>>
 // Will be removed once circular dependancy issue is resolved.
 const eqObjects = (obj1, obj2) => {

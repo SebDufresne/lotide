@@ -1,5 +1,7 @@
+//const eqArrays = require('./index').eqArrays;
 // --->>>
 // Will be removed once circular dependancy issue is resolved.
+
 const eqArrays = function(arr1, arr2) {
 
   if (arr1.length !== arr2.length) return false;
