@@ -5,6 +5,8 @@ const tail      = require('./tail');
 const takeUntil = require('./takeUntil');
 const without   = require('./without');
 const letterPositions = require('./letterPositions');
+const flatten = require('./flatten');
+const findKeyByValue = require('./findKeyByValue');
 
 module.exports = {
   head: head,
@@ -14,4 +16,6 @@ module.exports = {
   tail: tail,
   takeUntil: takeUntil,
   without: without,
+  flatten: flatten,
+  findKeyByValue : findKeyByValue,
 };
