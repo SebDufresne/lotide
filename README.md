@@ -55,4 +55,4 @@ To run the tests for the [node.js](http://nodejs.org/) integration:
 
 ## License
 Lotide scripts are released under the
-[MIT license](https://opensource.org/licenses/MIT).
+[ISC license](https://opensource.org/licenses/ISC).
