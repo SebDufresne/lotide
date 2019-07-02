@@ -36,7 +36,7 @@ The following functions are currently implemented:
 * `head`: Given an array, returns the first element.
 * `letterPositions`: Given a string, returns an object with an array of positions for each.
 * `map`: Given an array and a callback function will return an array with the callback applied.
-* `middle`: Return the middle element of an array. If the array is even it will return both middle ones.
+* `middle`: Return the middle element of an array. If the array is even, it will return both middle ones.
 * `tail`: Returns the last element of an array.
 * `takeUntil`: Given an array and a callback function will return all elements up to a match.
 * `without`: Given an array and an exclusion list, returns a new array without excluded elements.
