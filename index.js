@@ -7,6 +7,7 @@ const without   = require('./without');
 const letterPositions = require('./letterPositions');
 const flatten = require('./flatten');
 const findKeyByValue = require('./findKeyByValue');
+const findKey = require('./findKey');
 
 module.exports = {
   head: head,
@@ -18,4 +19,5 @@ module.exports = {
   without: without,
   flatten: flatten,
   findKeyByValue : findKeyByValue,
+  findKey : findKey,
 };
